@@ -7,5 +7,142 @@
   <body>
     <h1>Documentation Page</h1>
     <p>Welcome to myFlix. Here you'll be able to find information on movies, directors and actors. You'll also be able to sign up and create lists of your favorite movies!</p>
+    <div>
+      <h2>API Endpoints</h2>
+        <table>
+          <tr>
+            <th>Request / Business Logic</th>
+            <th>Endpoint URL</th>
+            <th>HTTP Method</th>
+            <th>Request body data format</th>
+            <th>Response body data format</th>
+          </tr>
+          <tr>
+            <td>Get a list of ALL movies</td>
+            <td>/movies</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object holding data about all movies</td>
+          </tr>
+          <tr>
+            <td>Get data about a single movie by title</td>
+            <td>/movies/:title</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object holding data about a single movie by title, including: description, genre, director and image URL
+              <br>Example:
+              <br>Title: "The Godfather",
+              <br>Description: "Follows the Corleone crime family in 1940s and 50s New York. It chronicles the transfer of power from patriarch Vito Corleone to his son Michael Corleone",
+              <br>Genre: "Crime",
+              <br>Director: "Francis Ford Coppola",
+              <br>Image: "godfather.png",
+              <br>
+            </td>
+          </tr>
+          <tr>
+            <td>Get data about a genre by name/title</td>
+            <td>/movies/:genre</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object containing the genre description
+              <br>Example:
+              <br>Genre: "Crime",
+              <br>Description: "Crime films involve various aspects of crime and it's detection. Crime films often overlap with other genres as well, including but not limited to: drama, comedy, mystery, suspense, etc.",
+              <br>
+            </td>
+          </tr>
+          <tr>
+            <td>Get data about a director by name</td>
+            <td>/movies/:director</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object containing data on the director, including: bio, birth year, and death year (if applicable)
+              <br>Example:
+              <br>Name: "Francis Ford Coppola",
+              <br>Bio: "Francis Ford Coppola is an American film director, producer and screenwriter",
+              <br>Birth: "April 7th, 1939",
+              <br>Death: " ",
+              <br>
+            </td>
+          </tr>
+          <tr>
+            <td>Allow new users to register</td>
+            <td>/users</td>
+            <td>POST</td>
+            <td>A JSON object holding data about the user to add, including: username, password, email, and date of birth
+              <br>Example:
+              <br>Username: "Luke832",
+              <br>Password: "HelloWorld123",
+              <br>Email: "Luke832@email.com",
+              <br>Date of Birth: "3/2/1998",
+              <br>
+            </td>
+            <td>A JSON object holding data about the user that was added
+              <br>Example:
+              <br>ID: "123",
+              <br>Username: "Luke832",
+              <br>Password: "HelloWorld123",
+              <br>Email: "Luke832@email.com",
+              <br>Date of Birth: "3/2/1998",
+              <br>
+            </td>
+          </tr>
+          <tr>
+            <td>Allow users to update their user info (username)</td>
+            <td>/users/:username</td>
+            <td>PUT</td>
+            <td>A JSON object holding data about the user info to update (username)
+              <br>Example:
+              <br>Username: "Luke832456",
+              <br>Password: "HelloWorld123",
+              <br>Email: "Luke832@email.com",
+              <br>Date of Birth: "3/2/1998",
+              <br>
+            </td>
+            <td>A JSON object holding data about the user's new username
+              <br>Example:
+              <br>ID: "123",
+              <br>Username: "Luke832456",
+              <br>Password: "HelloWorld123",
+              <br>Email: "Luke832@email.com",
+              <br>Date of Birth: "3/2/1998",
+              <br>
+            </td>
+          </tr>
+          <tr>
+            <td>Allow users to add a movie to their favorites list</td>
+            <td>/users/:username/:Favorite_Movies/:Movie_ID</td>
+            <td>POST</td>
+            <td>None
+              <br>Example:
+              <br>/users/:Luke832456/:Favorite_Movies/:ShawshankRedemption
+              <br>
+            </td>
+            <td>A text message saying the movie has been added</td>
+          </tr>
+          <tr>
+            <td>Allow users to remove a movie from their favorites list</td>
+            <td>/users/:username/:Favorite_Movies/:Movie_ID</td>
+            <td>DELETE</td>
+            <td>None
+              <br>Example:
+              <br>/users/:Luke832456/:Favorite_Movies/:ForrestGump
+              <br>
+            </td>
+            <td>A text message saying the movie has been removed</td>
+          </tr>
+          <tr>
+            <td>Allow users to deregister</td>
+            <td>/users/:username</td>
+            <td>DELETE</td>
+            <td>None
+              <br>Example:
+              <br>/users/:Luke832456
+              <br>
+            </td>
+            <td>A text message saying the user has been deregistered</td>
+          </tr>
+        </table>
+      </div>
   </body>
 </html>
