@@ -52,6 +52,41 @@ let movies = [
     director: 'Robert Zemeckis',
     image: 'forrestGump.png'
   },
+  {
+    title: 'Goodfellas',
+    description: 'Follows mobster Henry Hill and his relationship with his wife Karen, as well as fellow mobsters Jimmy Conway and Tommy Devito.',
+    genre: 'Crime',
+    director: 'Martin Scorsese',
+    image: 'goodfellas.png'
+  },
+  {
+    title: 'Wedding Crashers',
+    description: 'Friends John Beckwith and Jeremy Grey sneak into weddings to meet and hook up with women. The two find themselves at odds when John meets and falls in love with Claire Cleary.',
+    genre: 'Comedy',
+    director: 'David Dobkin',
+    image: 'weddingCrashers.png'
+  },
+  {
+    title: 'Old School',
+    description: 'Three friends try to recapture their college glory days by starting a new fraternity near their alma mater.',
+    genre: 'Comedy',
+    director: 'Todd Phillips',
+    image: 'oldSchool.png'
+  },
+  {
+    title: 'Training Day',
+    description: 'A rookie LAPD officer spends his first day with a narcotics officer who is not who he appears to be.',
+    genre: 'Crime',
+    director: 'Antoine Fuqua',
+    image: 'trainingDay.png'
+  },
+  {
+    title: 'Lincoln',
+    description: 'Focuses on the American President"s struggle to pass the 13th amendment to the Constitution and abolish slavery in the United States, while still dealing with the Civil War.',
+    genre: 'Drama',
+    director: 'Steven Spielberg',
+    image: 'lincoln.png'
+  },
 ];
 
 let genres = [
@@ -67,6 +102,10 @@ let genres = [
     title: 'War',
     description: 'War films focus on warfare using combat scenes to depict the drama. Examples include: naval, air, or land battles.'
   },
+  {
+    title: 'Comedy',
+    description: 'Comdedy films are designed to make the audience laugh mainly through jokes and exaggerating characteristics.'
+  }
 ];
 
 let directors = [
@@ -90,8 +129,32 @@ let directors = [
   },
   {
     name: 'Robert Zemeckis',
-    bio: 'Robert Zemeckis is an American film director producer and screenwriter. He is known as an innovator of special effects in the film industry. His films include the Back to the Future series, Who Framed Roger Rabbit (1988), and Forrest Gump (1994) for which he won an Academy Award.',
+    bio: 'Robert Zemeckis is an American film director, producer and screenwriter. He is known as an innovator of special effects in the film industry. His films include the Back to the Future series, Who Framed Roger Rabbit (1988), and Forrest Gump (1994) for which he won an Academy Award.',
     birthYear: 'May 14th, 1952',
+    deathYear: ' '
+  },
+  {
+    name: 'Martin Scorsese',
+    bio: 'Martin Scorsese is an American film director, producer, screenwriter, and actor. His films focus on themes such as faith, crime, machismo, and violence. He is widely considered one of the best and most influential filmmakers of all time.',
+    birthYear: 'November 17th, 1942',
+    deathYear: ' '
+  },
+  {
+    name: 'David Dobkin',
+    bio: 'David Dobkin is an American film director, producer, and screenwriter. He is known for his commercials, music videos, and comedy films, among other works.',
+    birthYear: 'June 23rd, 1969',
+    deathYear: ' '
+  },
+  {
+    name: 'Todd Phillips',
+    bio: 'Todd Phillips is an American film director, producer, screenwriter, and actor. He is mainly known for his comedy films, until he co-wrote and directed the psychological thriller Joker (2019), which earned him several Academy Award nominations.',
+    birthYear: 'December 20th, 1970',
+    deathYear: ' '
+  },
+  {
+    name: 'Antoine Fuqua',
+    bio: 'Antoine Fuqua is an American film director and producer. He started his career directing music videos, working with artists such as Prince, Stevie Wonder, and Toni Braxton, to name a few. His best known feature film is Training Day (2001), which was nominated for several awards.',
+    birthYear: 'January 19th, 1966',
     deathYear: ' '
   },
 ];
