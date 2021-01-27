@@ -204,7 +204,7 @@ app.get('/movies/:Title', (req, res) => {
 });
 
 //Gets data about a genre by name/title
-app.get('/movies/genres/:Title', (req, res) => {
+app.get('/genre/:Title', (req, res) => {
   // res.json(genres.find((genre) =>
   // { return genre.title === req.params.title }));
   Genres.findOne({ Title: req.params.Title})
@@ -218,7 +218,7 @@ app.get('/movies/genres/:Title', (req, res) => {
 });
 
 // Get data about a director by name
-app.get('/movies/directors/:Name', (req, res) => {
+app.get('/director/:Name', (req, res) => {
   // res.json(directors.find((director) =>
   // { return director.name === req.params.name }));
   Directors.findOne({ Name: req.params.Name})
@@ -280,7 +280,7 @@ app.put('/users/:Username', (req, res) => {
 });
 
 // Allow users to add movies to their favorites list
-app.post('/users/:Username/FavoriteMovies/:MovieID', (req, res) => {
+app.post('/users/:Username/:FavoriteMovies/:MovieID', (req, res) => {
   // res.send('Successful POST request adding movie title: ' + req.params.title + ' has been added to ' + req.params.username + ' favorite movies list.');
   Users.findOneAndUpdate({ Username: req.params.Username}, {
     $push: { FavoriteMovies: req.params.MovieID}
