@@ -176,7 +176,15 @@ app.get('/', (req, res) => {
 
 // Gets a list of all movies
 app.get('/movies', (req, res) => {
-  res.json(movies);
+  // res.json(movies);
+  Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
 // Gets data about a movie by title
