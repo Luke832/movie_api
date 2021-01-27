@@ -199,16 +199,29 @@ app.get('/movies/directors/:name', (req, res) => {
 
 // Allow a new user to register
 app.post('/users', (req, res) => {
-  let newUser = req.body;
-  let user = users.find((user) => { return user.username === newUser.username});
-  if (!user) {
-    newUser.id = uuid.v4();
-    newUser.Favorite_Movies = [];
-    users.push(newUser);
-    res.status(201).json(newUser);
-  } else {
-    res.status(400).send('This username already exists.');
-  }
+  Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + ' already exists.');
+      } else {
+        Users
+          .create({
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+          })
+          .then((user) => {res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
 // Allow users to update their username
