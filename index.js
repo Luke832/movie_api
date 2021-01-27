@@ -4,6 +4,8 @@ const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
+const Genres = Models.Genre;
+const Directors = Models.Director;
 
   bodyParser = require('body-parser');
   morgan = require('morgan');
@@ -188,21 +190,45 @@ app.get('/movies', (req, res) => {
 });
 
 // Gets data about a movie by title
-app.get('/movies/:title', (req, res) => {
-  res.json(movies.find((movie) =>
-  { return movie.title === req.params.title }));
+app.get('/movies/:Title', (req, res) => {
+  // res.json(movies.find((movie) =>
+  // { return movie.title === req.params.title }));
+  Movies.findOne({ Title: req.params.Title})
+    .then((movie) => {
+      res.status(201).json(movie);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
 //Gets data about a genre by name/title
-app.get('/movies/genres/:title', (req, res) => {
-  res.json(genres.find((genre) =>
-  { return genre.title === req.params.title }));
+app.get('/movies/genres/:Title', (req, res) => {
+  // res.json(genres.find((genre) =>
+  // { return genre.title === req.params.title }));
+  Genres.findOne({ Title: req.params.Title})
+    .then((genre) => {
+      res.status(201).json(genre.Description);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
 // Get data about a director by name
-app.get('/movies/directors/:name', (req, res) => {
-  res.json(directors.find((director) =>
-  { return director.name === req.params.name }));
+app.get('/movies/directors/:Name', (req, res) => {
+  // res.json(directors.find((director) =>
+  // { return director.name === req.params.name }));
+  Directors.findOne({ Name: req.params.Name})
+    .then((director) => {
+      res.status(201).json(director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
 // Allow a new user to register
@@ -233,33 +259,75 @@ app.post('/users', (req, res) => {
 });
 
 // Allow users to update their username
-app.put('/users/:username', (req, res) => {
-  let newUsername = req.body;
-  let user = users.find((user) => { return user.username === req.params.username});
-  if (!user) {
-    res.status(404).send('This username does not exist.');
-  } else {
-    user.username = newUsername.username;
-    user.password = newUsername.password;
-    user.email = newUsername.email;
-    user.dateOfBirth = newUsername.dateOfBirth;
-    res.status(200).json(user);
-  }
+app.put('/users/:Username', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username},
+  { $set: {
+    Username: req.body.Username,
+    Password: req.body.Password,
+    Email: req.body.Email,
+    Birthday: req.body.Birthday
+    }
+  },
+  { new: true},
+  (err, updatedUser) => {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + error);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
 
 // Allow users to add movies to their favorites list
-app.post('/users/:username/:Favorite_Movies/:Movie_ID', (req, res) => {
-  res.send('Successful POST request adding movie title: ' + req.params.title + ' has been added to ' + req.params.username + ' favorite movies list.');
+app.post('/users/:Username/:FavoriteMovies/:MovieID', (req, res) => {
+  // res.send('Successful POST request adding movie title: ' + req.params.title + ' has been added to ' + req.params.username + ' favorite movies list.');
+  Users.findOneAndUpdate({ Username: req.params.Username}, {
+    $push: { FavoriteMovies: req.params.MovieID}
+  },
+    { new: true},
+  (err, updatedUser) => {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + error);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
 
 // Allow users to remove a movie from their favorites list
-app.delete('/users/:username/:Favorite_Movies/:Movie_ID', (req, res) => {
-  res.send('Successful DELETE request removing movie title: ' + req.params.title + ' has been removed from ' + req.params.username + ' favorite movies list.');
+app.delete('/users/:Username/:FavoriteMovies/:MovieID', (req, res) => {
+  // res.send('Successful DELETE request removing movie title: ' + req.params.title + ' has been removed from ' + req.params.username + ' favorite movies list.');
+  Users.findOneAndUpdate({ Username: req.params.Username}, {
+    $pull: { FavoriteMovies: req.params.MovieID}
+  },
+    { new: true},
+  (err, updatedUser) => {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + error);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
 
 // Allow existing users to deregister
-app.delete('/users/:username', (req, res) => {
-  res.send('Succesful DELETE request removing user: ' + req.params.username + ' has been removed database.');
+app.delete('/users/:Username', (req, res) => {
+  // res.send('Succesful DELETE request removing user: ' + req.params.username + ' has been removed database.');
+  Users.findOneAndRemove({ Username: req.params.Username})
+    .then((user) => {
+      if(!user) {
+        res.status(400).send(req.params.Username + ' was not found.');
+      } else {
+        res.status(200).send(req.params.Username + ' was deleted.');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
 //listen for requests
