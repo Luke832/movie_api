@@ -33,9 +33,19 @@
               <br>Example:
               <br>Title: "The Godfather",
               <br>Description: "Follows the Corleone crime family in 1940s and 50s New York. It chronicles the transfer of power from patriarch Vito Corleone to his son Michael Corleone",
-              <br>Genre: "Crime",
-              <br>Director: "Francis Ford Coppola",
-              <br>Image: "godfather.png",
+              <br>Genre: {
+                <br>Title: "Crime",
+                <br>Description: "Crime films involve various aspects of crime and it's detection. Crime films often overlap with other genres as well, including but not limited to: drama, comedy, mystery, suspense, etc."
+                <br>},
+              <br>Director: {
+                <br>Name: "Francis Ford Coppola",
+                <br>Bio: "Francis Ford Coppola is an American film director, producer and screenwriter. He is widely considered one of the best filmmakers of all time for his work on: The Godfather (1972), The Godfather Part II (1974), The Conversation (1974), and Apocalypse Now (1979), among others.",
+                <br>Birth: new Date("1939-04-07"),
+                <br>Death: new Date("")
+                <br>},
+              <br>Actors: "Marlon Brando",
+              <br>ImagePath: "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY268_CR3,0,182,268_AL_.jpg",
+              <br>Featured: true,
               <br>
             </td>
           </tr>
@@ -46,8 +56,10 @@
             <td>None</td>
             <td>A JSON object containing the genre description
               <br>Example:
-              <br>Genre: "Crime",
-              <br>Description: "Crime films involve various aspects of crime and it's detection. Crime films often overlap with other genres as well, including but not limited to: drama, comedy, mystery, suspense, etc.",
+              <br>Genre: {
+                <br>Title: "Crime",
+                <br>Description: "Crime films involve various aspects of crime and it's detection. Crime films often overlap with other genres as well, including but not limited to: drama, comedy, mystery, suspense, etc.",
+                <br>},
               <br>
             </td>
           </tr>
@@ -58,10 +70,12 @@
             <td>None</td>
             <td>A JSON object containing data on the director, including: bio, birth year, and death year (if applicable)
               <br>Example:
-              <br>Name: "Francis Ford Coppola",
-              <br>Bio: "Francis Ford Coppola is an American film director, producer and screenwriter",
-              <br>Birth: "April 7th, 1939",
-              <br>Death: " ",
+              <br>Director: {
+                <br>Name: "Francis Ford Coppola",
+                <br>Bio: "Francis Ford Coppola is an American film director, producer and screenwriter. He is widely considered one of the best filmmakers of all time for his work on: The Godfather (1972), The Godfather Part II (1974), The Conversation (1974), and Apocalypse Now (1979), among others.",
+                <br>Birth: new Date("1939-04-07"),
+                <br>Death: new Date("")
+                <br>},
               <br>
             </td>
           </tr>
@@ -74,7 +88,8 @@
               <br>Username: "Luke832",
               <br>Password: "HelloWorld123",
               <br>Email: "Luke832@email.com",
-              <br>Date of Birth: "3/2/1998",
+              <br>Birthday: new Date("1984-05-26"),
+              <br>FavoriteMovies: [],
               <br>
             </td>
             <td>A JSON object holding data about the user that was added
@@ -83,7 +98,8 @@
               <br>Username: "Luke832",
               <br>Password: "HelloWorld123",
               <br>Email: "Luke832@email.com",
-              <br>Date of Birth: "3/2/1998",
+              <br>Birthday: new Date("1984-05-26"),
+              <br>FavoriteMovies: [],
               <br>
             </td>
           </tr>
@@ -96,7 +112,8 @@
               <br>Username: "Luke832456",
               <br>Password: "HelloWorld123",
               <br>Email: "Luke832@email.com",
-              <br>Date of Birth: "3/2/1998",
+              <br>Birthday: new Date("1984-05-26"),
+              <br>FavoriteMovies: [],
               <br>
             </td>
             <td>A JSON object holding data about the user's new username
@@ -105,31 +122,38 @@
               <br>Username: "Luke832456",
               <br>Password: "HelloWorld123",
               <br>Email: "Luke832@email.com",
-              <br>Date of Birth: "3/2/1998",
+              <br>Birthday: new Date("1984-05-26"),
+              <br>FavoriteMovies: [],
               <br>
             </td>
           </tr>
           <tr>
             <td>Allow users to add a movie to their favorites list</td>
-            <td>/users/:username/:Favorite_Movies/:Movie_ID</td>
+            <td>/users/:username/:FavoriteMovies/:Movie_ID</td>
             <td>POST</td>
             <td>None
               <br>Example:
-              <br>/users/:Luke832456/:Favorite_Movies/:ShawshankRedemption
+              <br>/users/:Luke832456/:Favorite_Movies/:TheGodfather
               <br>
             </td>
-            <td>A text message saying the movie has been added</td>
+            <td>A JSON object showing the new movie added to the user's favorites lists
+              <br>Username: "Luke832456",
+              <br>Password: "HelloWorld123",
+              <br>Email: "Luke832@email.com",
+              <br>Birthday: new Date("1984-05-26"),
+              <br>FavoriteMovies: ["The Godfather"],
+            </td>
           </tr>
           <tr>
             <td>Allow users to remove a movie from their favorites list</td>
-            <td>/users/:username/:Favorite_Movies/:Movie_ID</td>
+            <td>/users/:username/:FavoriteMovies/:Movie_ID</td>
             <td>DELETE</td>
             <td>None
               <br>Example:
               <br>/users/:Luke832456/:Favorite_Movies/:ForrestGump
               <br>
             </td>
-            <td>A text message saying the movie has been removed</td>
+            <td>A text message saying the movie has been removed from the user's favorites list</td>
           </tr>
           <tr>
             <td>Allow users to deregister</td>

@@ -1,9 +1,17 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
   bodyParser = require('body-parser');
   morgan = require('morgan');
   uuid = require('uuid');
 
 const app = express();
+
+mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.use(morgan('common'));
 
@@ -163,7 +171,7 @@ let users = [];
 
 //GET requests
 app.get('/', (req, res) => {
-  res.send('Here is my awesome movie list!');
+  res.send('Welcome to myFlix!');
 });
 
 // Gets a list of all movies
