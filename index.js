@@ -207,9 +207,9 @@ app.get('/movies/:Title', (req, res) => {
 app.get('movies/genres/:Title', (req, res) => {
   // res.json(genres.find((genre) =>
   // { return genre.title === req.params.title }));
-  Movies.findOne({ 'Genre.Title': req.params.Title})
-    .then((genre) => {
-      res.status(201).json(genre.Genre);
+  Movies.findOne({ Title: req.params.Title})
+    .then((movies) => {
+      res.status(201).json(movies.Genre);
     })
     .catch((err) => {
       console.error(err);
@@ -268,7 +268,7 @@ app.put('/users/:Username', (req, res) => {
     Birthday: req.body.Birthday
     }
   },
-  { new: true},
+  { new: true}, //this line makes sure the updated document is returned
   (err, updatedUser) => {
     if(err) {
       console.error(err);
@@ -285,7 +285,7 @@ app.post('/users/:Username/:FavoriteMovies/:MovieID', (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username}, {
     $push: { FavoriteMovies: req.params.MovieID}
   },
-    { new: true},
+    { new: true}, //this line makes sure the updated document is returned
   (err, updatedUser) => {
     if(err) {
       console.error(err);
@@ -297,12 +297,12 @@ app.post('/users/:Username/:FavoriteMovies/:MovieID', (req, res) => {
 });
 
 // Allow users to remove a movie from their favorites list
-app.delete('/users/:Username/:FavoriteMovies/:MovieID', (req, res) => {
+app.post('/users/:Username/:FavoriteMovies/:MovieID', (req, res) => {
   // res.send('Successful DELETE request removing movie title: ' + req.params.title + ' has been removed from ' + req.params.username + ' favorite movies list.');
   Users.findOneAndUpdate({ Username: req.params.Username}, {
     $pull: { FavoriteMovies: req.params.MovieID}
   },
-    { new: true},
+    { new: true}, //this line makes sure the updated document is returned
   (err, updatedUser) => {
     if(err) {
       console.error(err);
