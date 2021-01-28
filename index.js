@@ -207,7 +207,7 @@ app.get('/movies/:Title', (req, res) => {
 app.get('movies/genres/:Title', (req, res) => {
   // res.json(genres.find((genre) =>
   // { return genre.title === req.params.title }));
-  Movies.findOne({ Title: req.params.Title})
+  Movies.findOne({ 'Genre.Title': req.params.Title})
     .then((movies) => {
       res.status(201).json(movies.Genre);
     })
