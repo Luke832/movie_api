@@ -280,7 +280,7 @@ app.put('/users/:Username', (req, res) => {
 });
 
 // Allow users to add movies to their favorites list
-app.post('/users/:Username/:FavoriteMovies/:MovieID', (req, res) => {
+app.post('/users/:Username/movies/:MovieID', (req, res) => {
   // res.send('Successful POST request adding movie title: ' + req.params.title + ' has been added to ' + req.params.username + ' favorite movies list.');
   Users.findOneAndUpdate({ Username: req.params.Username}, {
     $push: { FavoriteMovies: req.params.MovieID}
@@ -297,7 +297,7 @@ app.post('/users/:Username/:FavoriteMovies/:MovieID', (req, res) => {
 });
 
 // Allow users to remove a movie from their favorites list
-app.post('/users/:Username/:FavoriteMovies/:MovieID', (req, res) => {
+app.post('/users/:Username/movies/:MovieID/Remove', (req, res) => {
   // res.send('Successful DELETE request removing movie title: ' + req.params.title + ' has been removed from ' + req.params.username + ' favorite movies list.');
   Users.findOneAndUpdate({ Username: req.params.Username}, {
     $pull: { FavoriteMovies: req.params.MovieID}
