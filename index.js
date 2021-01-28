@@ -204,10 +204,10 @@ app.get('/movies/:Title', (req, res) => {
 });
 
 //Gets data about a genre by name/title
-app.get('movies/genres/:Name', (req, res) => {
+app.get('movies/genres/:Title', (req, res) => {
   // res.json(genres.find((genre) =>
   // { return genre.title === req.params.title }));
-  Movies.findOne({ 'Genre.Name': req.params.Name})
+  Movies.findOne({ Title: req.params.Title})
     .then((movies) => {
       res.status(201).json(movies.Genre);
     })
