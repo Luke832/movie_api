@@ -40,8 +40,8 @@
               <br>Director: {
                 <br>Name: "Francis Ford Coppola",
                 <br>Bio: "Francis Ford Coppola is an American film director, producer and screenwriter. He is widely considered one of the best filmmakers of all time for his work on: The Godfather (1972), The Godfather Part II (1974), The Conversation (1974), and Apocalypse Now (1979), among others.",
-                <br>Birth: new Date("1939-04-07"),
-                <br>Death: new Date("")
+                <br>Birth: "1939-04-07",
+                <br>Death: null
                 <br>},
               <br>Actors: "Marlon Brando",
               <br>ImagePath: "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY268_CR3,0,182,268_AL_.jpg",
@@ -51,7 +51,7 @@
           </tr>
           <tr>
             <td>Get data about a genre by name/title</td>
-            <td>/movies/:genre</td>
+            <td>/movies/genres/:title</td>
             <td>GET</td>
             <td>None</td>
             <td>A JSON object containing the genre description
@@ -65,7 +65,7 @@
           </tr>
           <tr>
             <td>Get data about a director by name</td>
-            <td>/movies/:director</td>
+            <td>/movies/directors/:name</td>
             <td>GET</td>
             <td>None</td>
             <td>A JSON object containing data on the director, including: bio, birth year, and death year (if applicable)
@@ -73,8 +73,8 @@
               <br>Director: {
                 <br>Name: "Francis Ford Coppola",
                 <br>Bio: "Francis Ford Coppola is an American film director, producer and screenwriter. He is widely considered one of the best filmmakers of all time for his work on: The Godfather (1972), The Godfather Part II (1974), The Conversation (1974), and Apocalypse Now (1979), among others.",
-                <br>Birth: new Date("1939-04-07"),
-                <br>Death: new Date("")
+                <br>Birth: "1939-04-07",
+                <br>Death: null
                 <br>},
               <br>
             </td>
@@ -94,7 +94,7 @@
             </td>
             <td>A JSON object holding data about the user that was added
               <br>Example:
-              <br>ID: "123",
+              <br>ID: "600c95b5afe575768848292c",
               <br>Username: "Luke832",
               <br>Password: "HelloWorld123",
               <br>Email: "Luke832@email.com",
@@ -129,7 +129,7 @@
           </tr>
           <tr>
             <td>Allow users to add a movie to their favorites list</td>
-            <td>/users/:username/:FavoriteMovies/:Movie_ID</td>
+            <td>/users/:username/movies/:Movie_ID</td>
             <td>POST</td>
             <td>None
               <br>Example:
@@ -140,13 +140,13 @@
               <br>Username: "Luke832456",
               <br>Password: "HelloWorld123",
               <br>Email: "Luke832@email.com",
-              <br>Birthday: new Date("1984-05-26"),
-              <br>FavoriteMovies: ["The Godfather"],
+              <br>Birthday: "1984-05-26",
+              <br>FavoriteMovies: ["600c9678afe5757688482936"],
             </td>
           </tr>
           <tr>
             <td>Allow users to remove a movie from their favorites list</td>
-            <td>/users/:username/:FavoriteMovies/:Movie_ID</td>
+            <td>/users/:username/movies/:Movie_ID/Remove</td>
             <td>DELETE</td>
             <td>None
               <br>Example:
@@ -158,7 +158,7 @@
               <br>Password: "HelloWorld123",
               <br>Email: "Luke832@email.com",
               <br>Birthday: new Date("1984-05-26"),
-              <br>FavoriteMovies: ["The Godfather"],
+              <br>FavoriteMovies: [],
             </td>
           </tr>
           <tr>
