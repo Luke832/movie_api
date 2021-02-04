@@ -7,12 +7,17 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
+const cors = require('cors');
+app.use(cors());
+
   bodyParser = require('body-parser');
   morgan = require('morgan');
   uuid = require('uuid');
 
 const passport = require('passport');
 require('./passport');
+
+const { check, validationResult } = require('express-validator');
 
 const app = express();
 
@@ -108,7 +113,22 @@ app.get('/movies/directors/:Name', passport.authenticate('jwt', { session: false
 // });
 
 // Allow a new user to register
-app.post('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.post('/users', [
+  // Validation logic
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+
+  // check the validation object for errors
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json( {errors: errors.array() });
+  }
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -117,7 +137,7 @@ app.post('/users', passport.authenticate('jwt', { session: false }), (req, res) 
         Users
           .create({
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
@@ -135,11 +155,26 @@ app.post('/users', passport.authenticate('jwt', { session: false }), (req, res) 
 });
 
 // Allow users to update their username
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }), [
+  // Validation logic
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+
+  // check the validation object for errors
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json( {errors: errors.array() });
+  }
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOneAndUpdate({ Username: req.params.Username},
   { $set: {
     Username: req.body.Username,
-    Password: req.body.Password,
+    Password: hashedPassword,
     Email: req.body.Email,
     Birthday: req.body.Birthday
     }
