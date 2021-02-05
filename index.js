@@ -7,9 +7,6 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
-const cors = require('cors');
-app.use(cors());
-
   bodyParser = require('body-parser');
   morgan = require('morgan');
   uuid = require('uuid');
@@ -21,13 +18,17 @@ const { check, validationResult } = require('express-validator');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect( process.env.CONNECTION_URI , {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.use(morgan('common'));
 
 app.use(express.static('public'));
 
 app.use(bodyParser.json());
+
+const cors = require('cors');
+app.use(cors());
 
 let auth = require('./auth')(app);
 
@@ -239,6 +240,7 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
 });
 
 //listen for requests
-app.listen(8080, () => {
-  console.log('Your app is listening on port 8080');
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0', () => {
+  console.log('Listening on Port ' + port);
 });
