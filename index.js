@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
 });
 
 // Gets a list of all movies
-app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/movies', (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
@@ -91,29 +91,6 @@ app.get('/movies/directors/:Name', passport.authenticate('jwt', { session: false
       res.status(500).send('Error: ' + error);
     });
 });
-
-// Get a list of users
-// app.get('/users', (req, res) => {
-//   Users.find()
-//     .then((users) => {
-//       res.status(201).json(users);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.status(500).send('Error: ' + error);
-//     });
-// });
-//
-// // Get data about a user by username
-// app.get('/users/:Username', (req, res) => {
-//   Users.findOne({ Username: req.params.Username})
-//     .then((user) => {
-//       res.status(201).json(user);
-//     })
-//     .catch((err) => {
-//       res.status(500).send('Error: ' + error);
-//     });
-// });
 
 // Allow a new user to register
 app.post('/users', [
